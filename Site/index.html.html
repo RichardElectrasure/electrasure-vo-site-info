@@ -1,0 +1,506 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+<title>Electrasure - Site Information Form</title>
+<style>
+  :root {
+    --bg: #f2f1ef;
+    --card: #fff;
+    --accent: #2c5e3f;
+    --accent-light: #e6ede8;
+    --border: #ccc;
+    --text: #1a1a1a;
+    --muted: #666;
+    --input-bg: #fafaf9;
+    --brass: #8b7340;
+    --brass-light: #f5f0e6;
+  }
+  *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+  body{
+    font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;
+    background:var(--bg);color:var(--text);
+    font-size:16px;line-height:1.5;
+    padding-bottom:80px;
+    -webkit-text-size-adjust:100%;
+  }
+  .top-bar{background:var(--accent);color:#fff;padding:20px 16px 18px;text-align:center}
+  .top-bar h1{font-size:20px;font-weight:700;letter-spacing:1px;text-transform:uppercase}
+  .top-bar .sub{font-size:14px;margin-top:4px;opacity:0.9}
+  .intro{background:var(--brass-light);border-left:4px solid var(--brass);margin:12px 8px;padding:14px;border-radius:0 8px 8px 0;font-size:14px;line-height:1.5;color:#3a3a3a}
+  .section{background:var(--card);margin:10px 8px;border-radius:10px;border:1px solid var(--border);overflow:visible}
+  .section-header{background:var(--accent);color:#fff;padding:11px 14px;font-size:13px;font-weight:700;letter-spacing:.4px;text-transform:uppercase;border-radius:9px 9px 0 0}
+  .section-body{padding:14px}
+  label.fl{display:block;font-size:12px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.3px;margin:14px 0 5px}
+  label.fl:first-child{margin-top:0}
+  input[type="text"],input[type="tel"],input[type="email"],input[type="number"],textarea{
+    display:block;width:100%;padding:13px 12px;border:1.5px solid var(--border);border-radius:8px;
+    font-size:16px;background:var(--input-bg);color:var(--text);font-family:inherit;
+    -webkit-appearance:none;-moz-appearance:none;appearance:none;transition:border-color .2s;
+  }
+  input:focus,textarea:focus{outline:none;border-color:var(--accent);background:#fff;box-shadow:0 0 0 3px rgba(44,94,63,.12)}
+  textarea{resize:vertical;min-height:70px}
+  .row2{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+  .row3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px}
+  .ci{display:flex;align-items:center;padding:12px;margin:4px 0;border:1.5px solid var(--border);border-radius:8px;cursor:pointer;transition:all .12s;-webkit-tap-highlight-color:transparent;min-height:48px;user-select:none}
+  .ci:active{transform:scale(.98)}
+  .ci.on{background:var(--accent-light);border-color:var(--accent)}
+  .ci input[type="checkbox"],.ci input[type="radio"]{width:22px;height:22px;margin-right:10px;flex-shrink:0;accent-color:var(--accent);pointer-events:none}
+  .ci span{font-size:15px;flex:1}
+  .scat{border:1.5px solid var(--border);border-radius:8px;margin:6px 0;overflow:hidden}
+  .scat-h{padding:12px;font-weight:700;font-size:14px;color:var(--accent);background:var(--accent-light);cursor:pointer;display:flex;justify-content:space-between;align-items:center;-webkit-tap-highlight-color:transparent;user-select:none}
+  .scat-h .arr{transition:transform .2s;font-size:18px}
+  .scat-h.open .arr{transform:rotate(90deg)}
+  .scat-body{display:none;padding:2px 6px 6px}
+  .scat-body.open{display:block}
+  .scat-body .ci{border:none;border-bottom:1px solid #eee;border-radius:0;padding:11px 8px;margin:0;min-height:44px}
+  .scat-body .ci:last-child{border-bottom:none}
+  .tg{display:grid;gap:8px;margin-top:6px}
+  .tg3{grid-template-columns:1fr 1fr 1fr}
+  .tg4{grid-template-columns:1fr 1fr}
+  .tb{padding:14px 6px;border:1.5px solid var(--border);border-radius:8px;text-align:center;font-size:13px;font-weight:600;cursor:pointer;transition:all .12s;-webkit-tap-highlight-color:transparent;background:var(--input-bg);user-select:none}
+  .tb:active{transform:scale(.97)}
+  .tb.on{background:var(--accent);color:#fff;border-color:var(--accent)}
+  .hint{font-size:13px;color:var(--muted);margin-top:4px;line-height:1.4}
+  .divider{height:1px;background:#e0e0e0;margin:16px 0}
+  .or-badge{display:inline-block;background:#b85c2f;color:#fff;font-size:11px;font-weight:700;padding:3px 10px;border-radius:4px;margin:14px 0 6px;text-transform:uppercase}
+  .photo-guide{background:var(--brass-light);border:1.5px dashed var(--brass);border-radius:8px;padding:12px;margin:8px 0}
+  .photo-guide p{font-size:13px;margin-bottom:6px;font-weight:600;color:var(--brass)}
+  .photo-list{font-size:13px;line-height:1.7;color:#3a3a3a}
+  .photo-list span{display:block;padding-left:24px;position:relative}
+  .photo-list span::before{content:"\1F4F7";position:absolute;left:0}
+  .photo-btn-row{display:flex;gap:8px;margin-top:10px;flex-wrap:wrap}
+  .photo-btn{flex:1;min-width:140px;padding:12px 10px;border:1.5px solid var(--accent);border-radius:8px;background:var(--accent-light);color:var(--accent);font-size:13px;font-weight:600;text-align:center;cursor:pointer;-webkit-tap-highlight-color:transparent;position:relative;overflow:hidden}
+  .photo-btn input[type="file"]{position:absolute;top:0;left:0;width:100%;height:100%;opacity:0;cursor:pointer;font-size:0}
+  .photo-btn.has-photo{background:var(--accent);color:#fff;border-color:var(--accent)}
+  .photo-count{margin-top:8px;font-size:13px;color:var(--accent);font-weight:600;display:none}
+  .photo-count.show{display:block}
+  .photo-thumbs{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px}
+  .photo-thumbs img{width:64px;height:64px;object-fit:cover;border-radius:6px;border:1px solid var(--border)}
+  .optional-tag{display:inline-block;font-size:10px;font-weight:600;color:var(--brass);background:var(--brass-light);padding:1px 6px;border-radius:3px;margin-left:6px;text-transform:uppercase;vertical-align:middle}
+  .submit-area{padding:16px 8px}
+  .btn-submit{display:block;width:100%;padding:16px;border:none;border-radius:10px;font-size:16px;font-weight:700;cursor:pointer;-webkit-tap-highlight-color:transparent;font-family:inherit;background:var(--accent);color:#fff}
+  .btn-submit:disabled{opacity:.5;cursor:not-allowed}
+  .submit-hint{text-align:center;font-size:12px;color:var(--muted);margin-top:8px}
+  .progress-bar{display:none;margin-top:12px;background:#e0e0e0;border-radius:6px;height:8px;overflow:hidden}
+  .progress-bar .fill{height:100%;background:var(--accent);border-radius:6px;transition:width .3s;width:0}
+  .progress-text{display:none;text-align:center;font-size:13px;color:var(--accent);margin-top:6px;font-weight:600}
+  .success-overlay{display:none;position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,.5);z-index:200;align-items:center;justify-content:center;padding:20px}
+  .success-overlay.show{display:flex}
+  .success-box{background:#fff;border-radius:16px;padding:32px 24px;text-align:center;max-width:360px;width:100%}
+  .success-icon{font-size:48px;margin-bottom:12px}
+  .success-box h2{font-size:20px;color:var(--accent);margin-bottom:8px}
+  .success-box p{font-size:14px;color:var(--muted);line-height:1.5;margin-bottom:16px}
+  .success-box button{padding:14px 32px;border:none;border-radius:10px;font-size:15px;font-weight:700;cursor:pointer;font-family:inherit;background:var(--accent);color:#fff}
+  .error-banner{display:none;background:#fef2f2;border:1.5px solid #fca5a5;border-radius:8px;padding:12px;margin:8px 8px 0;font-size:14px;color:#991b1b;line-height:1.4}
+  .error-banner.show{display:block}
+  .error-banner a{color:#991b1b;font-weight:700}
+  .stamp{text-align:center;font-size:11px;color:var(--muted);padding:10px;margin-top:8px}
+  @media print{body{padding:0;background:#fff}}
+</style>
+</head>
+<body>
+
+<div class="top-bar">
+  <h1>Electrasure</h1>
+  <div class="sub">Site Information Form</div>
+</div>
+
+<div class="intro">
+  Thank you for taking the time to complete this form. The information helps us assess whether voltage optimisation could reduce your electricity costs, and by how much. Once we have the details below and a few photos, we can provide you with indicative savings figures without needing to visit your site first.
+</div>
+
+<div class="error-banner" id="errBanner"></div>
+
+<!-- 1 -->
+<div class="section">
+  <div class="section-header">1 &mdash; Your Details</div>
+  <div class="section-body">
+    <label class="fl" for="f_name">Your Name</label>
+    <input type="text" id="f_name" placeholder="Full name" autocomplete="name">
+    <label class="fl" for="f_role">Job Title / Role</label>
+    <input type="text" id="f_role" placeholder="e.g. Building Manager, FM, Owner" autocomplete="organization-title">
+    <div class="row2">
+      <div><label class="fl" for="f_phone">Phone</label><input type="tel" id="f_phone" placeholder="Best contact number" autocomplete="tel"></div>
+      <div><label class="fl" for="f_email">Email</label><input type="email" id="f_email" placeholder="Email address" autocomplete="email"></div>
+    </div>
+  </div>
+</div>
+
+<!-- 2 -->
+<div class="section">
+  <div class="section-header">2 &mdash; Site Details</div>
+  <div class="section-body">
+    <label class="fl" for="f_company">Company / Organisation</label>
+    <input type="text" id="f_company" placeholder="Business name" autocomplete="organization">
+    <label class="fl" for="f_address">Site Address</label>
+    <textarea rows="2" id="f_address" placeholder="Full address including postcode" autocomplete="street-address"></textarea>
+  </div>
+</div>
+
+<!-- 3 -->
+<div class="section">
+  <div class="section-header">3 &mdash; Electricity Information</div>
+  <div class="section-body">
+    <p class="hint" style="margin-bottom:10px;">To estimate savings accurately, we need your electricity usage data. Please provide whichever of the following you have access to:</p>
+    <div class="ci" onclick="tog(this)" data-field="data_hhd"><input type="checkbox"><span>I can provide 12 months of half hourly data (HHD)</span></div>
+    <p class="hint">Your energy supplier or meter operator can usually provide this on request.</p>
+    <div class="ci" onclick="tog(this)" data-field="data_recent_bill"><input type="checkbox"><span>I can provide a copy of a recent electricity bill (all pages)</span></div>
+    <div class="or-badge">If half hourly data is not available</div>
+    <div class="ci" onclick="tog(this)" data-field="data_12m_bills"><input type="checkbox"><span>I can provide 12 months of electricity bills</span></div>
+    <div class="row2" style="margin-top:12px;">
+      <div><label class="fl" for="f_hrs">Operating hours per day</label><input type="number" id="f_hrs" inputmode="numeric" placeholder="e.g. 10"></div>
+      <div><label class="fl" for="f_days">Days per week</label><input type="number" id="f_days" inputmode="numeric" placeholder="e.g. 5"></div>
+    </div>
+  </div>
+</div>
+
+<!-- 4 -->
+<div class="section">
+  <div class="section-header">4 &mdash; Type of Building</div>
+  <div class="section-body">
+    <p class="hint" style="margin-bottom:8px;">Tap the category that best describes your site, then pick the closest match.</p>
+    <div class="scat"><div class="scat-h" onclick="togSec(this)">Office <span class="arr">&#9654;</span></div><div class="scat-body"><div class="ci" onclick="togR(this,'sector')"><input type="radio" name="sector" value="Office"><span>Office</span></div></div></div>
+    <div class="scat"><div class="scat-h" onclick="togSec(this)">Health <span class="arr">&#9654;</span></div><div class="scat-body">
+      <div class="ci" onclick="togR(this,'sector')"><input type="radio" name="sector" value="Care Home"><span>Care Home</span></div>
+      <div class="ci" onclick="togR(this,'sector')"><input type="radio" name="sector" value="Hospital"><span>Hospital</span></div>
+    </div></div>
+    <div class="scat"><div class="scat-h" onclick="togSec(this)">Education <span class="arr">&#9654;</span></div><div class="scat-body">
+      <div class="ci" onclick="togR(this,'sector')"><input type="radio" name="sector" value="School"><span>School</span></div>
+      <div class="ci" onclick="togR(this,'sector')"><input type="radio" name="sector" value="School with Pool"><span>School with Pool</span></div>
+      <div class="ci" onclick="togR(this,'sector')"><input type="radio" name="sector" value="College / University"><span>College / University</span></div>
+      <div class="ci" onclick="togR(this,'sector')"><input type="radio" name="sector" value="College / University with Pool"><span>College / University with Pool</span></div>
+      <div class="ci" onclick="togR(this,'sector')"><input type="radio" name="sector" value="Student Accommodation"><span>Student Accommodation</span></div>
+    </div></div>
+    <div class="scat"><div class="scat-h" onclick="togSec(this)">Leisure &amp; Hospitality <span class="arr">&#9654;</span></div><div class="scat-body">
+      <div class="ci" onclick="togR(this,'sector')"><input type="radio" name="sector" value="Health and Fitness Club"><span>Health &amp; Fitness Club</span></div>
+      <div class="ci" onclick="togR(this,'sector')"><input type="radio" name="sector" value="Health and Fitness Club with Pool / Spa"><span>Health &amp; Fitness Club with Pool / Spa</span></div>
+      <div class="ci" onclick="togR(this,'sector')"><input type="radio" name="sector" value="Sports Centre"><span>Sports Centre</span></div>
+      <div class="ci" onclick="togR(this,'sector')"><input type="radio" name="sector" value="Sports Centre with Pool"><span>Sports Centre with Pool</span></div>
+      <div class="ci" onclick="togR(this,'sector')"><input type="radio" name="sector" value="Golf Club"><span>Golf Club</span></div>
+      <div class="ci" onclick="togR(this,'sector')"><input type="radio" name="sector" value="Social / Working Mens Club"><span>Social / Working Men's Club</span></div>
+      <div class="ci" onclick="togR(this,'sector')"><input type="radio" name="sector" value="Pub / Restaurant"><span>Pub / Restaurant</span></div>
+      <div class="ci" onclick="togR(this,'sector')"><input type="radio" name="sector" value="Fast Food Restaurant"><span>Fast Food Restaurant</span></div>
+      <div class="ci" onclick="togR(this,'sector')"><input type="radio" name="sector" value="Cinema / Bowling Alley"><span>Cinema / Bowling Alley</span></div>
+      <div class="ci" onclick="togR(this,'sector')"><input type="radio" name="sector" value="Hotel"><span>Hotel</span></div>
+      <div class="ci" onclick="togR(this,'sector')"><input type="radio" name="sector" value="Hotel with Pool / Spa"><span>Hotel with Pool / Spa</span></div>
+      <div class="ci" onclick="togR(this,'sector')"><input type="radio" name="sector" value="Guest House / B and B"><span>Guest House / B&amp;B</span></div>
+      <div class="ci" onclick="togR(this,'sector')"><input type="radio" name="sector" value="Historic Property"><span>Historic Property</span></div>
+      <div class="ci" onclick="togR(this,'sector')"><input type="radio" name="sector" value="Museum / Art Gallery"><span>Museum / Art Gallery</span></div>
+    </div></div>
+    <div class="scat"><div class="scat-h" onclick="togSec(this)">Retail <span class="arr">&#9654;</span></div><div class="scat-body">
+      <div class="ci" onclick="togR(this,'sector')"><input type="radio" name="sector" value="Corner Shop"><span>Corner Shop</span></div>
+      <div class="ci" onclick="togR(this,'sector')"><input type="radio" name="sector" value="Convenience Store"><span>Convenience Store</span></div>
+      <div class="ci" onclick="togR(this,'sector')"><input type="radio" name="sector" value="Large Supermarket"><span>Large Supermarket</span></div>
+      <div class="ci" onclick="togR(this,'sector')"><input type="radio" name="sector" value="Non-Food Retail"><span>Non-Food Retail</span></div>
+      <div class="ci" onclick="togR(this,'sector')"><input type="radio" name="sector" value="Garden Centre"><span>Garden Centre</span></div>
+    </div></div>
+    <div class="scat"><div class="scat-h" onclick="togSec(this)">Warehouse / Storage <span class="arr">&#9654;</span></div><div class="scat-body">
+      <div class="ci" onclick="togR(this,'sector')"><input type="radio" name="sector" value="Ambient Warehouse"><span>Ambient Warehouse</span></div>
+      <div class="ci" onclick="togR(this,'sector')"><input type="radio" name="sector" value="Chilled Storage"><span>Chilled Storage</span></div>
+      <div class="ci" onclick="togR(this,'sector')"><input type="radio" name="sector" value="Frozen Storage"><span>Frozen Storage</span></div>
+    </div></div>
+    <div class="scat"><div class="scat-h" onclick="togSec(this)">Farming <span class="arr">&#9654;</span></div><div class="scat-body">
+      <div class="ci" onclick="togR(this,'sector')"><input type="radio" name="sector" value="Mixed Farm"><span>Mixed Farm</span></div>
+      <div class="ci" onclick="togR(this,'sector')"><input type="radio" name="sector" value="Dairy Farm"><span>Dairy Farm</span></div>
+      <div class="ci" onclick="togR(this,'sector')"><input type="radio" name="sector" value="Poultry Farm"><span>Poultry Farm</span></div>
+    </div></div>
+    <div class="scat"><div class="scat-h" onclick="togSec(this)">Light Industrial <span class="arr">&#9654;</span></div><div class="scat-body">
+      <div class="ci" onclick="togR(this,'sector')"><input type="radio" name="sector" value="Mixed Light Industrial"><span>Mixed Light Industrial</span></div>
+      <div class="ci" onclick="togR(this,'sector')"><input type="radio" name="sector" value="Wood Working"><span>Wood Working</span></div>
+      <div class="ci" onclick="togR(this,'sector')"><input type="radio" name="sector" value="Painting"><span>Painting</span></div>
+      <div class="ci" onclick="togR(this,'sector')"><input type="radio" name="sector" value="Traditional Machine Shop"><span>Traditional Machine Shop</span></div>
+      <div class="ci" onclick="togR(this,'sector')"><input type="radio" name="sector" value="CNC Machine Shop"><span>CNC Machine Shop</span></div>
+      <div class="ci" onclick="togR(this,'sector')"><input type="radio" name="sector" value="Labs and Pharmaceutical"><span>Labs &amp; Pharmaceutical</span></div>
+      <div class="ci" onclick="togR(this,'sector')"><input type="radio" name="sector" value="Laundry Services"><span>Laundry Services</span></div>
+      <div class="ci" onclick="togR(this,'sector')"><input type="radio" name="sector" value="Bakery"><span>Bakery</span></div>
+      <div class="ci" onclick="togR(this,'sector')"><input type="radio" name="sector" value="Food Manufacturing"><span>Food Manufacturing</span></div>
+      <div class="ci" onclick="togR(this,'sector')"><input type="radio" name="sector" value="Car Sales and Servicing"><span>Car Sales &amp; Servicing</span></div>
+    </div></div>
+    <div class="scat"><div class="scat-h" onclick="togSec(this)">Industrial <span class="arr">&#9654;</span></div><div class="scat-body">
+      <div class="ci" onclick="togR(this,'sector')"><input type="radio" name="sector" value="Mixed Industrial"><span>Mixed Industrial</span></div>
+      <div class="ci" onclick="togR(this,'sector')"><input type="radio" name="sector" value="Fabrication and Welding"><span>Fabrication &amp; Welding</span></div>
+      <div class="ci" onclick="togR(this,'sector')"><input type="radio" name="sector" value="Recycling Centre"><span>Recycling Centre</span></div>
+      <div class="ci" onclick="togR(this,'sector')"><input type="radio" name="sector" value="Press Shop"><span>Press Shop</span></div>
+      <div class="ci" onclick="togR(this,'sector')"><input type="radio" name="sector" value="Injection Moulding"><span>Injection Moulding</span></div>
+      <div class="ci" onclick="togR(this,'sector')"><input type="radio" name="sector" value="Plastic Extrusion"><span>Plastic Extrusion</span></div>
+      <div class="ci" onclick="togR(this,'sector')"><input type="radio" name="sector" value="Dairy Processing"><span>Dairy Processing</span></div>
+      <div class="ci" onclick="togR(this,'sector')"><input type="radio" name="sector" value="Meat Processing"><span>Meat Processing</span></div>
+      <div class="ci" onclick="togR(this,'sector')"><input type="radio" name="sector" value="Ports and Docks"><span>Ports &amp; Docks</span></div>
+      <div class="ci" onclick="togR(this,'sector')"><input type="radio" name="sector" value="Chemical / Oil Refining"><span>Chemical / Oil Refining</span></div>
+    </div></div>
+    <div class="scat"><div class="scat-h" onclick="togSec(this)">Heavy Industrial <span class="arr">&#9654;</span></div><div class="scat-body">
+      <div class="ci" onclick="togR(this,'sector')"><input type="radio" name="sector" value="Mixed Heavy Industrial"><span>Mixed Heavy Industrial</span></div>
+      <div class="ci" onclick="togR(this,'sector')"><input type="radio" name="sector" value="Forging and Smelting"><span>Forging &amp; Smelting</span></div>
+      <div class="ci" onclick="togR(this,'sector')"><input type="radio" name="sector" value="Steel Processing / Finishing"><span>Steel Processing / Finishing</span></div>
+      <div class="ci" onclick="togR(this,'sector')"><input type="radio" name="sector" value="Large Scale Machine Shop"><span>Large Scale Machine Shop</span></div>
+      <div class="ci" onclick="togR(this,'sector')"><input type="radio" name="sector" value="Heat Treatment (gas)"><span>Heat Treatment (gas)</span></div>
+      <div class="ci" onclick="togR(this,'sector')"><input type="radio" name="sector" value="Heat Treatment (electric)"><span>Heat Treatment (electric)</span></div>
+      <div class="ci" onclick="togR(this,'sector')"><input type="radio" name="sector" value="Quarrying"><span>Quarrying</span></div>
+    </div></div>
+    <label class="fl" for="f_sector_other" style="margin-top:14px;">Other (please describe)</label>
+    <input type="text" id="f_sector_other" placeholder="If your site doesn't fit any of the above">
+  </div>
+</div>
+
+<!-- 5 -->
+<div class="section">
+  <div class="section-header">5 &mdash; Energy Saving Measures</div>
+  <div class="section-body">
+    <p class="hint" style="margin-bottom:8px;">Has the site already undertaken any energy saving measures (e.g. LED lighting, insulation, controls upgrades)?</p>
+    <div class="tg tg3" id="measures">
+      <div class="tb" onclick="togBtn(this,'measures')">None</div>
+      <div class="tb" onclick="togBtn(this,'measures')">Some</div>
+      <div class="tb" onclick="togBtn(this,'measures')">Extensive</div>
+    </div>
+  </div>
+</div>
+
+<!-- 6 -->
+<div class="section">
+  <div class="section-header">6 &mdash; Electrical Supply Details</div>
+  <div class="section-body">
+    <p class="hint" style="margin-bottom:12px;">Please provide whatever details you can. If you are unsure about any of these, leave them blank and we can check during a site visit.</p>
+    <label class="fl">Supply Voltage Readings <span class="optional-tag">If Known</span></label>
+    <p class="hint">These can sometimes be read from the electricity meter display, or from a sub-meter in the switchgear.</p>
+    <div class="row3" style="margin-top:8px;">
+      <div><label class="fl" for="f_l1" style="margin-top:0">L1 (Volts)</label><input type="number" id="f_l1" inputmode="decimal" placeholder="e.g. 242"></div>
+      <div><label class="fl" for="f_l2" style="margin-top:0">L2 (Volts)</label><input type="number" id="f_l2" inputmode="decimal" placeholder="e.g. 245"></div>
+      <div><label class="fl" for="f_l3" style="margin-top:0">L3 (Volts)</label><input type="number" id="f_l3" inputmode="decimal" placeholder="e.g. 241"></div>
+    </div>
+    <div class="divider"></div>
+    <label class="fl" for="f_amps">Main Switch Size (Amps) <span class="optional-tag">If Known</span></label>
+    <input type="text" id="f_amps" placeholder="e.g. 200A - usually printed on the main switch">
+    <label class="fl" for="f_ct">Meter CT Size <span class="optional-tag">If Known</span></label>
+    <input type="text" id="f_ct" placeholder="e.g. 800:5 - shown on the current transformers">
+    <label class="fl" for="f_tx">Transformer Size (kVA) <span class="optional-tag">If Applicable</span></label>
+    <input type="text" id="f_tx" placeholder="Only if your site has its own transformer">
+  </div>
+</div>
+
+<!-- 7 -->
+<div class="section">
+  <div class="section-header">7 &mdash; Existing Renewable Energy</div>
+  <div class="section-body">
+    <label class="fl" for="f_renew">Do you have any existing solar, wind, or other generation on site?</label>
+    <input type="text" id="f_renew" placeholder="e.g. 50kW solar PV, or None">
+  </div>
+</div>
+
+<!-- 8 -->
+<div class="section">
+  <div class="section-header">8 &mdash; Photos</div>
+  <div class="section-body">
+    <div class="photo-guide">
+      <p>We need a few photos of your electrical intake. These help us confirm the supply arrangement and size the equipment correctly.</p>
+      <div class="photo-list">
+        <span>Electricity meter (front, showing display)</span>
+        <span>Main switch / isolator</span>
+        <span>Switchgear / distribution boards (general view)</span>
+        <span>Any labels showing supply size or CT ratings</span>
+        <span>The area around the incoming supply (for installation space)</span>
+      </div>
+    </div>
+    <p class="hint" style="margin-top:10px;">Tap below to take photos or choose from your gallery. Photos will be compressed and sent with your form.</p>
+    <div class="photo-btn-row">
+      <label class="photo-btn" id="pbtn">
+        Take / Choose Photos
+        <input type="file" accept="image/*" multiple onchange="photoAdded(this)">
+      </label>
+    </div>
+    <div class="photo-count" id="pcount"></div>
+    <div class="photo-thumbs" id="pthumbs"></div>
+  </div>
+</div>
+
+<!-- 9 -->
+<div class="section">
+  <div class="section-header">9 &mdash; Mobile Signal at Site</div>
+  <div class="section-body">
+    <p class="hint" style="margin-bottom:8px;">Some equipment options include remote monitoring which requires a mobile signal. How is the signal at your site?</p>
+    <div class="tg tg4" id="signal">
+      <div class="tb" onclick="togBtn(this,'signal')">Good (4 bars)</div>
+      <div class="tb" onclick="togBtn(this,'signal')">Average (2-3)</div>
+      <div class="tb" onclick="togBtn(this,'signal')">Poor (1 bar)</div>
+      <div class="tb" onclick="togBtn(this,'signal')">None</div>
+    </div>
+  </div>
+</div>
+
+<!-- 10 -->
+<div class="section">
+  <div class="section-header">10 &mdash; Anything Else</div>
+  <div class="section-body">
+    <textarea rows="4" id="f_notes" placeholder="Any other details about the site, access requirements, or questions you have for us..."></textarea>
+  </div>
+</div>
+
+<!-- SUBMIT -->
+<div class="submit-area">
+  <button class="btn-submit" type="button" id="submitBtn" onclick="submitForm()">Send to Electrasure</button>
+  <div class="progress-bar" id="progBar"><div class="fill" id="progFill"></div></div>
+  <div class="progress-text" id="progText"></div>
+  <p class="submit-hint">Your information is sent securely to Electrasure. We will be in touch within two working days.</p>
+</div>
+
+<div class="stamp">Electrasure Electrical Ltd &bull; electrasure.co.uk</div>
+
+<!-- SUCCESS -->
+<div class="success-overlay" id="successOverlay">
+  <div class="success-box">
+    <div class="success-icon">&#9989;</div>
+    <h2>Form Sent</h2>
+    <p>Thank you. We have received your site information and will be in touch within two working days.</p>
+    <p style="font-size:13px;">If you ticked that you can provide electricity data, please email your bills or HHD file to <strong>info@electrasure.co.uk</strong></p>
+    <button onclick="document.getElementById('successOverlay').classList.remove('show')">Close</button>
+  </div>
+</div>
+
+<script>
+function tog(el){var c=el.querySelector('input');c.checked=!c.checked;el.classList.toggle('on',c.checked);}
+function togR(el,n){document.querySelectorAll('input[name="'+n+'"]').forEach(function(r){r.checked=false;r.closest('.ci').classList.remove('on');});el.querySelector('input').checked=true;el.classList.add('on');}
+function togBtn(el,gid){document.getElementById(gid).querySelectorAll('.tb').forEach(function(b){b.classList.remove('on');});el.classList.add('on');}
+function togSec(el){var b=el.nextElementSibling,o=b.classList.contains('open');document.querySelectorAll('.scat-body').forEach(function(x){x.classList.remove('open');});document.querySelectorAll('.scat-h').forEach(function(x){x.classList.remove('open');});if(!o){b.classList.add('open');el.classList.add('open');}}
+
+var rawFiles=[];
+function photoAdded(inp){
+  if(!inp.files||!inp.files.length)return;
+  for(var i=0;i<inp.files.length;i++){
+    rawFiles.push(inp.files[i]);
+    var reader=new FileReader();
+    reader.onload=function(e){var img=document.createElement('img');img.src=e.target.result;document.getElementById('pthumbs').appendChild(img);};
+    reader.readAsDataURL(inp.files[i]);
+  }
+  var pc=document.getElementById('pcount');
+  pc.textContent=rawFiles.length+' photo'+(rawFiles.length!==1?'s':'')+' selected';
+  pc.classList.add('show');
+  document.getElementById('pbtn').classList.add('has-photo');
+}
+
+function compressImage(file,maxW,quality){
+  return new Promise(function(resolve){
+    var reader=new FileReader();
+    reader.onload=function(e){
+      var img=new Image();
+      img.onload=function(){
+        var c=document.createElement('canvas');
+        var w=img.width,h=img.height;
+        if(w>maxW){h=Math.round(h*maxW/w);w=maxW;}
+        c.width=w;c.height=h;
+        c.getContext('2d').drawImage(img,0,0,w,h);
+        c.toBlob(function(blob){resolve(blob);},'image/jpeg',quality);
+      };
+      img.src=e.target.result;
+    };
+    reader.readAsDataURL(file);
+  });
+}
+
+function gv(id){var e=document.getElementById(id);return e?e.value.trim():'';}
+
+function showProgress(pct,txt){
+  document.getElementById('progBar').style.display='block';
+  document.getElementById('progFill').style.width=pct+'%';
+  document.getElementById('progText').style.display='block';
+  document.getElementById('progText').textContent=txt;
+}
+
+function showError(msg){
+  var b=document.getElementById('errBanner');
+  b.innerHTML=msg;b.classList.add('show');
+  b.scrollIntoView({behavior:'smooth',block:'center'});
+}
+
+async function submitForm(){
+  var name=gv('f_name'),company=gv('f_company');
+  if(!name||!company){
+    showError('Please fill in at least your <strong>name</strong> and <strong>company name</strong> before sending.');
+    return;
+  }
+
+  var btn=document.getElementById('submitBtn');
+  btn.disabled=true;btn.textContent='Sending...';
+  document.getElementById('errBanner').classList.remove('show');
+
+  try{
+    showProgress(10,'Preparing form data...');
+
+    var fd=new FormData();
+    fd.append('access_key','1b15184d-d792-4d3c-b7a7-543eb56ccc89');
+    fd.append('subject','Site Information Form - '+gv('f_company'));
+    fd.append('from_name','Electrasure Site Form');
+
+    fd.append('Contact Name',gv('f_name'));
+    fd.append('Role',gv('f_role'));
+    fd.append('Phone',gv('f_phone'));
+    fd.append('Email',gv('f_email'));
+    fd.append('Company',gv('f_company'));
+    fd.append('Address',gv('f_address'));
+
+    var hhd=document.querySelector('[data-field="data_hhd"]');
+    var rb=document.querySelector('[data-field="data_recent_bill"]');
+    var tb=document.querySelector('[data-field="data_12m_bills"]');
+    var dataProvided=[];
+    if(hhd&&hhd.classList.contains('on'))dataProvided.push('12 months HHD');
+    if(rb&&rb.classList.contains('on'))dataProvided.push('Recent electricity bill');
+    if(tb&&tb.classList.contains('on'))dataProvided.push('12 months of bills');
+    fd.append('Data Provided',dataProvided.length?dataProvided.join(', '):'None selected');
+    fd.append('Operating Hours/Day',gv('f_hrs'));
+    fd.append('Days/Week',gv('f_days'));
+
+    var sr=document.querySelector('input[name="sector"]:checked');
+    fd.append('Building Sector',sr?sr.value:'');
+    fd.append('Sector Other',gv('f_sector_other'));
+
+    var meas=document.querySelector('#measures .tb.on');
+    fd.append('Energy Measures',meas?meas.textContent.trim():'');
+
+    var v1=gv('f_l1'),v2=gv('f_l2'),v3=gv('f_l3');
+    if(v1||v2||v3)fd.append('Supply Voltage','L1='+v1+'V, L2='+v2+'V, L3='+v3+'V');
+    fd.append('Main Switch Amps',gv('f_amps'));
+    fd.append('Meter CT Size',gv('f_ct'));
+    fd.append('Transformer kVA',gv('f_tx'));
+    fd.append('Existing Renewables',gv('f_renew'));
+
+    var sig=document.querySelector('#signal .tb.on');
+    fd.append('Mobile Signal',sig?sig.textContent.trim():'');
+    fd.append('Additional Notes',gv('f_notes'));
+
+    // Compress and attach photos
+    if(rawFiles.length>0){
+      showProgress(20,'Compressing photos...');
+      for(var i=0;i<rawFiles.length;i++){
+        showProgress(20+Math.round((i/rawFiles.length)*50),'Compressing photo '+(i+1)+' of '+rawFiles.length+'...');
+        var compressed=await compressImage(rawFiles[i],1200,0.7);
+        fd.append('attachment',compressed,'site_photo_'+(i+1)+'.jpg');
+      }
+    }
+
+    showProgress(80,'Sending...');
+
+    var resp=await fetch('https://api.web3forms.com/submit',{
+      method:'POST',
+      body:fd
+    });
+
+    var result=await resp.json();
+
+    if(result.success){
+      showProgress(100,'Sent!');
+      document.getElementById('successOverlay').classList.add('show');
+      btn.textContent='Sent';
+    }else{
+      throw new Error(result.message||'Submission failed');
+    }
+
+  }catch(err){
+    btn.disabled=false;btn.textContent='Send to Electrasure';
+    document.getElementById('progBar').style.display='none';
+    document.getElementById('progText').style.display='none';
+    showError('Could not send the form. This may be a network issue. Please try again, or email the details and photos directly to <a href="mailto:info@electrasure.co.uk">info@electrasure.co.uk</a>');
+  }
+}
+</script>
+</body>
+</html>
