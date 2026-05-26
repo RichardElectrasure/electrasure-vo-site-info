@@ -70,32 +70,13 @@
   .photo-list{font-size:13px;line-height:1.7;color:#3a3a3a}
   .photo-list span{display:block;padding-left:24px;position:relative}
   .photo-list span::before{content:"\1F4F7";position:absolute;left:0}
-  .photo-btn-row{display:flex;gap:8px;margin-top:10px;flex-wrap:wrap}
-  .photo-btn{flex:1;min-width:140px;padding:12px 10px;border:1.5px solid var(--accent);border-radius:8px;background:var(--accent-light);color:var(--accent);font-size:13px;font-weight:600;text-align:center;cursor:pointer;-webkit-tap-highlight-color:transparent;position:relative;overflow:hidden}
-  .photo-btn input[type="file"]{position:absolute;top:0;left:0;width:100%;height:100%;opacity:0;cursor:pointer;font-size:0}
-  .photo-btn.has-photo{background:var(--accent);color:#fff;border-color:var(--accent)}
-  .photo-count{margin-top:8px;font-size:13px;color:var(--accent);font-weight:600;display:none}
-  .photo-count.show{display:block}
-  .photo-thumbs{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px}
-  .photo-thumbs img{width:64px;height:64px;object-fit:cover;border-radius:6px;border:1px solid var(--border)}
+  .photo-note{background:var(--accent-light);border:1.5px solid var(--accent);border-radius:8px;padding:12px;margin-top:12px;font-size:13px;color:var(--accent);font-weight:600;line-height:1.5}
   .optional-tag{display:inline-block;font-size:10px;font-weight:600;color:var(--brass);background:var(--brass-light);padding:1px 6px;border-radius:3px;margin-left:6px;text-transform:uppercase;vertical-align:middle}
   .submit-area{padding:16px 8px}
   .btn-submit{display:block;width:100%;padding:16px;border:none;border-radius:10px;font-size:16px;font-weight:700;cursor:pointer;-webkit-tap-highlight-color:transparent;font-family:inherit;background:var(--accent);color:#fff}
-  .btn-submit:disabled{opacity:.5;cursor:not-allowed}
-  .submit-hint{text-align:center;font-size:12px;color:var(--muted);margin-top:8px}
-  .progress-bar{display:none;margin-top:12px;background:#e0e0e0;border-radius:6px;height:8px;overflow:hidden}
-  .progress-bar .fill{height:100%;background:var(--accent);border-radius:6px;transition:width .3s;width:0}
-  .progress-text{display:none;text-align:center;font-size:13px;color:var(--accent);margin-top:6px;font-weight:600}
-  .success-overlay{display:none;position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,.5);z-index:200;align-items:center;justify-content:center;padding:20px}
-  .success-overlay.show{display:flex}
-  .success-box{background:#fff;border-radius:16px;padding:32px 24px;text-align:center;max-width:360px;width:100%}
-  .success-icon{font-size:48px;margin-bottom:12px}
-  .success-box h2{font-size:20px;color:var(--accent);margin-bottom:8px}
-  .success-box p{font-size:14px;color:var(--muted);line-height:1.5;margin-bottom:16px}
-  .success-box button{padding:14px 32px;border:none;border-radius:10px;font-size:15px;font-weight:700;cursor:pointer;font-family:inherit;background:var(--accent);color:#fff}
+  .submit-hint{text-align:center;font-size:12px;color:var(--muted);margin-top:8px;line-height:1.5}
   .error-banner{display:none;background:#fef2f2;border:1.5px solid #fca5a5;border-radius:8px;padding:12px;margin:8px 8px 0;font-size:14px;color:#991b1b;line-height:1.4}
   .error-banner.show{display:block}
-  .error-banner a{color:#991b1b;font-weight:700}
   .stamp{text-align:center;font-size:11px;color:var(--muted);padding:10px;margin-top:8px}
   @media print{body{padding:0;background:#fff}}
 </style>
@@ -290,10 +271,10 @@
 
 <!-- 8 -->
 <div class="section">
-  <div class="section-header">8 &mdash; Photos</div>
+  <div class="section-header">8 &mdash; Photos Needed</div>
   <div class="section-body">
     <div class="photo-guide">
-      <p>We need a few photos of your electrical intake. These help us confirm the supply arrangement and size the equipment correctly.</p>
+      <p>Please take the following photos and have them ready. They will be attached to the email that opens when you tap "Send to Electrasure" below.</p>
       <div class="photo-list">
         <span>Electricity meter (front, showing display)</span>
         <span>Main switch / isolator</span>
@@ -302,15 +283,7 @@
         <span>The area around the incoming supply (for installation space)</span>
       </div>
     </div>
-    <p class="hint" style="margin-top:10px;">Tap below to take photos or choose from your gallery. Photos will be compressed and sent with your form.</p>
-    <div class="photo-btn-row">
-      <label class="photo-btn" id="pbtn">
-        Take / Choose Photos
-        <input type="file" accept="image/*" multiple onchange="photoAdded(this)">
-      </label>
-    </div>
-    <div class="photo-count" id="pcount"></div>
-    <div class="photo-thumbs" id="pthumbs"></div>
+    <div class="photo-note">When your email app opens after tapping Send, use the attachment / paperclip button to add your photos and any electricity bills before sending.</div>
   </div>
 </div>
 
@@ -338,168 +311,93 @@
 
 <!-- SUBMIT -->
 <div class="submit-area">
-  <button class="btn-submit" type="button" id="submitBtn" onclick="submitForm()">Send to Electrasure</button>
-  <div class="progress-bar" id="progBar"><div class="fill" id="progFill"></div></div>
-  <div class="progress-text" id="progText"></div>
-  <p class="submit-hint">Your information is sent securely to Electrasure. We will be in touch within two working days.</p>
+  <button class="btn-submit" type="button" onclick="sendForm()">Send to Electrasure</button>
+  <p class="submit-hint">This will open your email app with the form details filled in. Please attach your photos and electricity bills before sending.</p>
 </div>
 
 <div class="stamp">Electrasure Electrical Ltd &bull; electrasure.co.uk</div>
-
-<!-- SUCCESS -->
-<div class="success-overlay" id="successOverlay">
-  <div class="success-box">
-    <div class="success-icon">&#9989;</div>
-    <h2>Form Sent</h2>
-    <p>Thank you. We have received your site information and will be in touch within two working days.</p>
-    <p style="font-size:13px;">If you ticked that you can provide electricity data, please email your bills or HHD file to <strong>info@electrasure.co.uk</strong></p>
-    <button onclick="document.getElementById('successOverlay').classList.remove('show')">Close</button>
-  </div>
-</div>
 
 <script>
 function tog(el){var c=el.querySelector('input');c.checked=!c.checked;el.classList.toggle('on',c.checked);}
 function togR(el,n){document.querySelectorAll('input[name="'+n+'"]').forEach(function(r){r.checked=false;r.closest('.ci').classList.remove('on');});el.querySelector('input').checked=true;el.classList.add('on');}
 function togBtn(el,gid){document.getElementById(gid).querySelectorAll('.tb').forEach(function(b){b.classList.remove('on');});el.classList.add('on');}
 function togSec(el){var b=el.nextElementSibling,o=b.classList.contains('open');document.querySelectorAll('.scat-body').forEach(function(x){x.classList.remove('open');});document.querySelectorAll('.scat-h').forEach(function(x){x.classList.remove('open');});if(!o){b.classList.add('open');el.classList.add('open');}}
-
-var rawFiles=[];
-function photoAdded(inp){
-  if(!inp.files||!inp.files.length)return;
-  for(var i=0;i<inp.files.length;i++){
-    rawFiles.push(inp.files[i]);
-    var reader=new FileReader();
-    reader.onload=function(e){var img=document.createElement('img');img.src=e.target.result;document.getElementById('pthumbs').appendChild(img);};
-    reader.readAsDataURL(inp.files[i]);
-  }
-  var pc=document.getElementById('pcount');
-  pc.textContent=rawFiles.length+' photo'+(rawFiles.length!==1?'s':'')+' selected';
-  pc.classList.add('show');
-  document.getElementById('pbtn').classList.add('has-photo');
-}
-
-function compressImage(file,maxW,quality){
-  return new Promise(function(resolve){
-    var reader=new FileReader();
-    reader.onload=function(e){
-      var img=new Image();
-      img.onload=function(){
-        var c=document.createElement('canvas');
-        var w=img.width,h=img.height;
-        if(w>maxW){h=Math.round(h*maxW/w);w=maxW;}
-        c.width=w;c.height=h;
-        c.getContext('2d').drawImage(img,0,0,w,h);
-        c.toBlob(function(blob){resolve(blob);},'image/jpeg',quality);
-      };
-      img.src=e.target.result;
-    };
-    reader.readAsDataURL(file);
-  });
-}
-
 function gv(id){var e=document.getElementById(id);return e?e.value.trim():'';}
 
-function showProgress(pct,txt){
-  document.getElementById('progBar').style.display='block';
-  document.getElementById('progFill').style.width=pct+'%';
-  document.getElementById('progText').style.display='block';
-  document.getElementById('progText').textContent=txt;
-}
-
-function showError(msg){
-  var b=document.getElementById('errBanner');
-  b.innerHTML=msg;b.classList.add('show');
-  b.scrollIntoView({behavior:'smooth',block:'center'});
-}
-
-async function submitForm(){
+function sendForm(){
   var name=gv('f_name'),company=gv('f_company');
   if(!name||!company){
-    showError('Please fill in at least your <strong>name</strong> and <strong>company name</strong> before sending.');
+    var b=document.getElementById('errBanner');
+    b.innerHTML='Please fill in at least your <strong>name</strong> and <strong>company name</strong> before sending.';
+    b.classList.add('show');
+    b.scrollIntoView({behavior:'smooth',block:'center'});
     return;
   }
-
-  var btn=document.getElementById('submitBtn');
-  btn.disabled=true;btn.textContent='Sending...';
   document.getElementById('errBanner').classList.remove('show');
 
-  try{
-    showProgress(10,'Preparing form data...');
+  var l=[];
+  l.push('ELECTRASURE - SITE INFORMATION FORM');
+  l.push('Date: '+new Date().toLocaleDateString('en-GB'));
+  l.push('');
+  l.push('CONTACT DETAILS');
+  if(gv('f_name'))l.push('Name: '+gv('f_name'));
+  if(gv('f_role'))l.push('Role: '+gv('f_role'));
+  if(gv('f_phone'))l.push('Phone: '+gv('f_phone'));
+  if(gv('f_email'))l.push('Email: '+gv('f_email'));
+  l.push('');
+  l.push('SITE DETAILS');
+  if(gv('f_company'))l.push('Company: '+gv('f_company'));
+  if(gv('f_address'))l.push('Address: '+gv('f_address'));
+  l.push('');
 
-    var fd=new FormData();
-    fd.append('access_key','1b15184d-d792-4d3c-b7a7-543eb56ccc89');
-    fd.append('subject','Site Information Form - '+gv('f_company'));
-    fd.append('from_name','Electrasure Site Form');
+  l.push('ELECTRICITY DATA');
+  var hhd=document.querySelector('[data-field="data_hhd"]');
+  var rb=document.querySelector('[data-field="data_recent_bill"]');
+  var tb=document.querySelector('[data-field="data_12m_bills"]');
+  if(hhd&&hhd.classList.contains('on'))l.push('- Can provide 12 months HHD');
+  if(rb&&rb.classList.contains('on'))l.push('- Can provide recent electricity bill');
+  if(tb&&tb.classList.contains('on'))l.push('- Can provide 12 months of bills');
+  if(gv('f_hrs'))l.push('Operating hours/day: '+gv('f_hrs'));
+  if(gv('f_days'))l.push('Days/week: '+gv('f_days'));
+  l.push('');
 
-    fd.append('Contact Name',gv('f_name'));
-    fd.append('Role',gv('f_role'));
-    fd.append('Phone',gv('f_phone'));
-    fd.append('Email',gv('f_email'));
-    fd.append('Company',gv('f_company'));
-    fd.append('Address',gv('f_address'));
-
-    var hhd=document.querySelector('[data-field="data_hhd"]');
-    var rb=document.querySelector('[data-field="data_recent_bill"]');
-    var tb=document.querySelector('[data-field="data_12m_bills"]');
-    var dataProvided=[];
-    if(hhd&&hhd.classList.contains('on'))dataProvided.push('12 months HHD');
-    if(rb&&rb.classList.contains('on'))dataProvided.push('Recent electricity bill');
-    if(tb&&tb.classList.contains('on'))dataProvided.push('12 months of bills');
-    fd.append('Data Provided',dataProvided.length?dataProvided.join(', '):'None selected');
-    fd.append('Operating Hours/Day',gv('f_hrs'));
-    fd.append('Days/Week',gv('f_days'));
-
-    var sr=document.querySelector('input[name="sector"]:checked');
-    fd.append('Building Sector',sr?sr.value:'');
-    fd.append('Sector Other',gv('f_sector_other'));
-
-    var meas=document.querySelector('#measures .tb.on');
-    fd.append('Energy Measures',meas?meas.textContent.trim():'');
-
-    var v1=gv('f_l1'),v2=gv('f_l2'),v3=gv('f_l3');
-    if(v1||v2||v3)fd.append('Supply Voltage','L1='+v1+'V, L2='+v2+'V, L3='+v3+'V');
-    fd.append('Main Switch Amps',gv('f_amps'));
-    fd.append('Meter CT Size',gv('f_ct'));
-    fd.append('Transformer kVA',gv('f_tx'));
-    fd.append('Existing Renewables',gv('f_renew'));
-
-    var sig=document.querySelector('#signal .tb.on');
-    fd.append('Mobile Signal',sig?sig.textContent.trim():'');
-    fd.append('Additional Notes',gv('f_notes'));
-
-    // Compress and attach photos
-    if(rawFiles.length>0){
-      showProgress(20,'Compressing photos...');
-      for(var i=0;i<rawFiles.length;i++){
-        showProgress(20+Math.round((i/rawFiles.length)*50),'Compressing photo '+(i+1)+' of '+rawFiles.length+'...');
-        var compressed=await compressImage(rawFiles[i],1200,0.7);
-        fd.append('attachment',compressed,'site_photo_'+(i+1)+'.jpg');
-      }
-    }
-
-    showProgress(80,'Sending...');
-
-    var resp=await fetch('https://api.web3forms.com/submit',{
-      method:'POST',
-      body:fd
-    });
-
-    var result=await resp.json();
-
-    if(result.success){
-      showProgress(100,'Sent!');
-      document.getElementById('successOverlay').classList.add('show');
-      btn.textContent='Sent';
-    }else{
-      throw new Error(result.message||'Submission failed');
-    }
-
-  }catch(err){
-    btn.disabled=false;btn.textContent='Send to Electrasure';
-    document.getElementById('progBar').style.display='none';
-    document.getElementById('progText').style.display='none';
-    showError('Could not send the form. This may be a network issue. Please try again, or email the details and photos directly to <a href="mailto:info@electrasure.co.uk">info@electrasure.co.uk</a>');
+  var sr=document.querySelector('input[name="sector"]:checked');
+  var so=gv('f_sector_other');
+  if(sr||so){
+    l.push('BUILDING TYPE');
+    if(sr)l.push(sr.value);
+    if(so)l.push('Other: '+so);
+    l.push('');
   }
+
+  var meas=document.querySelector('#measures .tb.on');
+  if(meas){l.push('ENERGY SAVING MEASURES: '+meas.textContent.trim());l.push('');}
+
+  var v1=gv('f_l1'),v2=gv('f_l2'),v3=gv('f_l3'),amps=gv('f_amps'),ct=gv('f_ct'),tx=gv('f_tx');
+  if(v1||v2||v3||amps||ct||tx){
+    l.push('ELECTRICAL SUPPLY');
+    if(v1||v2||v3)l.push('Voltage: L1='+v1+'V, L2='+v2+'V, L3='+v3+'V');
+    if(amps)l.push('Main switch: '+amps);
+    if(ct)l.push('CT size: '+ct);
+    if(tx)l.push('Transformer: '+tx);
+    l.push('');
+  }
+
+  var ren=gv('f_renew');
+  if(ren){l.push('EXISTING RENEWABLES: '+ren);l.push('');}
+
+  var sig=document.querySelector('#signal .tb.on');
+  if(sig){l.push('MOBILE SIGNAL: '+sig.textContent.trim());l.push('');}
+
+  var notes=gv('f_notes');
+  if(notes){l.push('ADDITIONAL NOTES');l.push(notes);l.push('');}
+
+  l.push('---');
+  l.push('PLEASE ATTACH YOUR SITE PHOTOS AND ELECTRICITY BILLS TO THIS EMAIL BEFORE SENDING.');
+
+  var subj='Site Information Form - '+gv('f_company');
+  var body=encodeURIComponent(l.join('\n'));
+  window.location.href='mailto:info@electrasure.co.uk?subject='+encodeURIComponent(subj)+'&body='+body;
 }
 </script>
 </body>
